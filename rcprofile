@@ -120,7 +120,7 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BAT_CONFIG_PATH="/etc/rc.d/bat.conf"
 
 # fzf
-[ -f ~/.fzf.zsh ] && source "~/.fzf.zsh"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /etc/rc.d/rcprofzf ] && source /etc/rc.d/rcprofzf
 
 # latex
@@ -138,7 +138,7 @@ export PATH="$TEX_HOME/bin/aarch64-linux:$PATH"
 # PATHがとうらないのでPATH設定の後ろに設定
 if [[ -r ~/.cargo/env ]]
 then
-    source "~/.cargo/env"
+    source ~/.cargo/env
 fi
 if [[ -r ~/.cabal ]]; then
     PATH="$PATH:$HOME/.cabal/bin"
