@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Xのrcsrcスクリプト
+# macOSのクリップボードのコピーであるpbcopyやその出力のpbpasteを
+# xclipで実現する。
+alias pbcopy="xclip --selection c"
+alias pbpaste="xclip --selection c -o"
+
+

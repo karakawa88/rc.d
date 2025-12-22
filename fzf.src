@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# fzfで指定したパスのディレクトリを選択してcdする
+function fda() {
+    local dir
+    dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m --preview='tree -aC') && cd "$dir"
+}
+
+# ディレクトリの中のファイルとディレクトリをfzfで選択してそれを標準出力に出力する
+# 何も指定しない場合はホームディレクトリを選択したことになる。
+# 書式: fzf_find [ディレクトリ]
+# ステータスコード: 1      ディレクトリが存在しない
+#
+function fzf_find() {
+    local dir
+    local fname
+
+    if [[ -z "$1" ]]; then
+        dir="~"
+    else 
+        dir="$1"
+    fi
+    if [[ ! -d "$1" ]]; then
+        return 1;
+    fi
+
+    fname=$(find "$dir" -print 2>/dev/null | fzf +m --preview='tree -C')
+    echo "$fname"
+}
+
+# ディレクトリの中のディレクトリをfzfで選択してそれを標準出力に出力する
+# 何も指定しない場合はホームディレクトリを選択したことになる。
+# 書式: fzf_find_dir [ディレクトリ]
+# ステータスコード: 1      ディレクトリが存在しない
+#
+function fzf_find_dir() {
+    local dir
+    local result
+
+    if [[ -z "$1" ]]; then
+        dir="~"
+    else 
+        dir="$1"
+    fi
+    if [[ ! -d "$1" ]]; then
+        return 1;
+    fi
+
+    result=$(find "$dir" -type d -print 2>/dev/null | fzf +m --preview='tree -aC {}')
+    echo "$result"
+}
+
+# ディレクトリを指定しファイルをfzfで指定して標準出力に書き出す。
+# 何も指定しなく場合はカレントディレクトリを選択したことになる。
+# 書式: fzf_find_file [ディレクトリ]
+# ステータスコード: 1   ディレクトリは存在しない
+function fzf_find_file() {
+    local dir
+    local file
+
+    if [[ -z "$1" ]]; then
+        dir="."
+    else 
+        dir="$1"
+    fi
+    if [[ ! -d "$1" ]]; then
+        return 1;
+    fi
+
+    file=$(find "$dir" -type f -print 2>/dev/null | fzf +m --preview='bat --color=always {}')
+    echo "$file"
+}
+
+# テーマの見た目を確認。
+# /path/to/file の部分には シンタックスハイライト の確認をするためのファイルパスを指定
+function bat_themes() {
+    bat --list-themes | fzf --preview="bat --theme={} --color=always /etc/rc.d/rcprofile"
+}
+
+# エイリアス
+alias fzf_update='cd ~/.fzf && git pull && ./install'
+
+

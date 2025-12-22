@@ -1,0 +1,78 @@
+#!/bin/zsh
+
+#bashrcに読み込まれエイリアスと関数を定義する
+
+#generic alias
+#file
+# cp
+#alias cp='cp -i '
+# コピーオンウライト
+# 常に CoW
+# cp --reflink=always ...
+# 可能ならCoW
+# cp --reflink=auto ...
+alias cp='cp --reflink=auto '
+alias rm='rm -i '
+alias mv='mv -i '
+
+#configureのhelpをlessで見る
+alias confless='./configure --help | less'
+#コマンドの絶対パスを表示 複数表示できる
+alias cmdpath='cmdpath.sh '
+
+#apt
+alias anames='apt-cache pkgnames | grep '
+alias dpkgl='dpkg -l | grep '
+
+#application
+#screen
+#alias screen='TERM=screen screen'
+
+# locate
+alias locate='LOCATE_PATH="$(find /var/lib/plocate -maxdepth 1 -type f 2>/dev/null | paste -sd : -)" locate'
+alias locate-all='LOCATE_PATH="$(find /var/lib/plocate -type f 2>/dev/null | paste -sd : -)" locate'
+alias locate-home='locate -d /var/lib/plocate/home-plocate.db'
+alias locate-var='locate -d /var/lib/plocate/var-plocate.db'
+
+#jsl
+alias jsl='jsl -conf /usr/local/etc/jsl/jsl.conf '
+
+#Git
+alias git-conf="git config --global --list"
+alias git-short='git log --pretty=format:"%h %s" '
+alias git-long='git log --pretty=oneline '
+alias git-push='git push origin master:master'
+
+# 計算
+calc() {
+    awk "BEGIN{print $*}"
+}
+
+#docker
+# docker
+alias docker_stop="sudo docker container ls -a | sed '1d' | awk '{print \$1;}' | xargs sudo docker container stop"
+alias docker_rm="sudo docker container ls -a | sed '1d' | awk '{print \$1;}' | xargs sudo docker container rm"
+alias docker_image_rm="docker_stop; docker_rm; sudo docker image ls | sed '1d' | awk '{print \$3;}' | xargs sudo docker image rm"
+
+# exa
+alias exls='exa --color=always --icons '
+alias ext='exa -T --color=always --icons '
+
+# neovim
+# init.vimを読みこまずデフォルトの状態で起動する
+# その場合viで退化して起動する。それを防ぐために-Nでvimとして起動する。
+alias nonvim='nvim -u NONE -N '
+
+# fzf
+if [[ -r /etc/rc.d/fzf.src ]]
+then
+    . /etc/rc.d/fzf.src 
+fi
+
+# X
+if [[ -r /etc/rc.d/rcsrcx ]]
+then
+    . /etc/rc.d/rcsrcx
+fi
+
+

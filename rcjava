@@ -1,0 +1,69 @@
+#!/bin/sh
+
+#java
+JAVA_HOME=/usr/local/jdk
+JAVA_BIN=$JAVA_HOME/bin
+JRE_HOME=$JAVA_HOME/jre
+JCP_EXT=$JRE_HOME/lib/ext
+JCP_ENDORSED=$JRE_HOME/lib/endorsed
+export JAVA_HOME JAVA_BIN JRE_HOME JCP_EXT JCP_ENDORSED
+
+#ANT
+export ANT_HOME=/usr/local/ant
+export ANT_BIN=$ANT_HOME/bin
+
+#MAVEN
+export MAVEN_HOME=/usr/local/maven
+export MAVEN=$MAVEN_HOME
+export MVN=$MAVEN
+
+#man path
+MANPATH=$MANPATH:$JAVA_HOME/man
+export MANPATH
+
+#Javadoc
+JAVADOC_DIR=$DOC_DIR/java/java-doc
+export JAVADOC_DIR
+
+#パッケージのjarファイルがあるディレクトリー
+export JARS=/usr/local/jars
+
+#Java関連環境変数
+export JKDBA_HOME=/home/data/JKDBA
+export JKDBA=$JKDBA_HOME
+#stjava
+export STJAVA=$JKDBA_HOME/stjava
+export JDK5=$STJAVA/jdk5
+
+#eclipse
+export ECLIPSE=/usr/local/eclipse
+#servlet env path
+#Servlet
+export CATALINA_HOME=/usr/local/tomcat
+export TOMCAT_HOME=$CATALINA_HOME
+export TOMCAT=$TOMCAT_HOME
+export TOMCAT_BIN=$TOMCAT_HOME/bin
+export JSERV=$JKDBA/jserv
+#/jserv
+export JBLOG=$JSERV/jblog
+export JBFS=$JBLOG/WEB-INF/fs
+export JBU=$JBLOG/WEB-INF/fs/users
+export JWORK=$JSERV/wicket
+
+#android
+#export ANDROID=/usr/local/android
+
+#Scala
+export SCALA_HOME=/usr/local/scala
+export SCALA="$SCALA_HOME"
+
+#PATH
+export PATH="$PATH:$JAVA_BIN:$TOMCAT_BIN:$ANT_BIN:$ANDROID/tools"
+export PATH="$PATH:$MVN/bin:$SCALA/bin:$SH/scala"
+
+#CLASSPATH
+CLASSPATH=`/usr/local/sh/java/classpath.sh`
+export CLASSPATH
+
+
+

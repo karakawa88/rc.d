@@ -1,0 +1,170 @@
+#!/bin/bash
+
+#ローカルタイムの設定
+export TZ="Asia/Tokyo"
+
+#ロケールの設定
+LANG=ja_JP.UTF-8
+LC_CTYPE="ja_JP.UTF-8"
+LC_NUMERIC="ja_JP.UTF-8"
+LC_TIME="ja_JP.UTF-8"
+LC_MONETARY="ja_JP.UTF-8"
+LC_MESSAGES="ja_JP.UTF-8"
+# export LC_ALL=ja_JP.UTF-8
+
+# 端末の設定
+export TERM="xterm-256color"
+case "$TERM" in
+    linux)
+        [ -n "$FBTERM" ] && export TERM="fbterm"
+        FBTERM=1 fbterm -- uim-fep -u mozc
+        ;;
+    fbterm)
+        ;;
+    *)
+        export TERM="xterm-256color"
+        ;;
+esac
+
+#履歴
+export HISTFILE=~/.zsh_history
+#メモリーに保存する履歴の件数
+export HISTSIZE=60000
+#ファイルに保存する履歴の件数
+export SAVEHIST=100000
+
+export KEYTIMEOUT=0
+
+#my shell scripts
+export SH=/usr/local/sh
+export SHSYS=$SH/system
+export SYS=$SHSYS
+
+#MANPATH
+export MANPATH=/usr/local/share/man/ja_JP.UTF8:/usr/local/share/man/ja:/usr/share/man:/usr/local/share/man
+export MANPAGER="nvim +Man!"
+#info
+#export INFOPATH="$VR/info/ja:/usr/local/share/info"
+
+#module Directory
+MD="/lib/modules/`uname -r`"
+export MD
+
+#LIBSAFE
+#LIBSAFE=/lib/libsafe.so.2
+#export LIBSAFE
+
+#lha,zip
+#LHA_CODESET=cp932
+#ZIP_CODESET=cp932
+#export LHA_CODESET ZIP_CODESET
+
+#less
+#LESSCHARSET="UTF-8"
+#JLESSCHARSET="UTF-8"
+# export PAGER='less'
+export PAGER='nvimpager'
+export LESS='-R'
+
+#Git
+export GIT_PAGER="less"
+export GIT_EDITOR="nvim"
+#git repogitories
+export GIT_REPOS=/home/data/git/repos
+export REPOS=$GIT_REPOS
+#git shell script
+export GITSH=$SH/git
+
+#Python
+export PYTHON_HOME=/usr/local/python
+#export PYTHONPATH="$PATHONPATH:.:~/work/python"
+
+#Mac
+#Xcode SDK Root
+#export XCODE_SDK_ROOT=`xcrun --show-sdk-path -sdk macosx`
+#alias swiftc="swiftc -sdk $XCODE_SDK_ROOT"
+
+#Editor
+export XDG_CONFIG_HOME=~/.config
+export EDITOR=/usr/local/bin/nvim
+#nvim
+#export VIMRUNTIME="/opt/local/share/vim/vim80/"
+
+export WORK=~/work
+
+# PostgreSQL
+# export PGHOME=/usr/local/pgsql
+# export PGDATA=/home/data/db/pgdata
+# export PGHOST=localhost
+
+# Wifiデバイス名
+export WD="wlx0013eff3249b"
+
+# GPG
+# GPGで署名を行う際エラーを回避する
+export GPG_TTY=$(tty)
+# gpg-agentなどをsystemd --userで立ち上げる場合などsuでログインすると
+# systemd --userが使用できない。この問題を解決するために以下の環境変数の追加。
+# if [[ -z "$XDG_RUNTIME_DIR" || -z "$DBUS_SESSION_BUS_ADDRESS" ]]
+# then
+#     export XDG_RUNTIME_DIR="/run/user/$UID"
+#     export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+# fi
+
+# ripgrep
+# ripgrepのデフォルトオプションの設定ファイル
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+# nvim
+# bat
+export BAT_CONFIG_PATH="/etc/rc.d/bat.conf"
+
+# fzf
+[ -f ~/.fzf.zsh ] && source "~/.fzf.zsh"
+[ -f /etc/rc.d/rcprofzf ] && source /etc/rc.d/rcprofzf
+
+# latex
+export TEX_HOME="/usr/local/texlive/2025"
+
+#path
+# export PATH="$MYSQL_BIN"
+export PATH="/usr/local/bin:/bin:/usr/bin"
+export PATH="$PATH:/usr/local/sbin:/sbin:/usr/sbin"
+export PATH="$PYTHON_HOME/bin:$PATH"
+export PATH="$TEX_HOME/bin/aarch64-linux:$PATH"
+# cargoを使用するためパスを通す
+# cabalのshellcheckを使用するためにパスをとうす
+# 自分はPATHは初期化して設定するのでPATH設定前に設定すると
+# PATHがとうらないのでPATH設定の後ろに設定
+if [[ -r ~/.cargo/env ]]
+then
+    source "~/.cargo/env"
+fi
+if [[ -r ~/.cabal ]]; then
+    PATH="$PATH:$HOME/.cabal/bin"
+fi
+# Macのhomebrewのパスをとうす
+if [[ $(uname) == "Darwin" ]]
+then
+        export PATH="$PATH:/opt/homebrew/bin"
+fi
+
+#if [ -f /etc/rc.d/rcld ]; then
+#	. /etc/rc.d/rcld
+#fi
+
+# if [ -r /etc/rc.d/gccflags.src ]; then
+# 	. /etc/rc.d/gccflags.src
+# fi
+
+#if [ -f /etc/rc.d/rcproadmin ]; then
+#   . /etc/rc.d/rcproadmin
+#fi
+
+#if [ -f /etc/rc.d/rcprox ]; then
+#	. /etc/rc.d/rcprox
+#fi
+
+#sudo /sbin/kbdrate -r 25
+
+

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#OS終了時に呼ばれるスクリプト
+echo "rc.shudown Script開始"
+
+# hwclock
+/sbin/hwclock -w
+HWDATE=`hwclock -r`
+echo "hwclock: $HWDATE"
+
+echo "rc.shudown Script開始"
+
+exit 0
+

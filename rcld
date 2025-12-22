@@ -1,0 +1,15 @@
+#システムのライブラリーの設定
+#動的ライブラリーが読み込まれる順序
+#1	環境変数LD_PRELOADで指定したライブラリー
+#2	環境変数LD_LIBRARY_PATHで指定したパスにあるライブラリー
+#3	/etc/ld.so.cacheに登録されているライブラリー
+#4	/usr/libにあるライブラリー
+#5	/libにあるライブラリー
+#またファイル/etc/ld.so.preloadで指定されたライブラリーは上に
+#示したライブラリーより先に読み込まれる
+
+#LD_DEBUG
+#
+#LD_PRELOAD=
+export LD_LIBRARY_PATH=/usr/lib
+#LD_DEBUG=

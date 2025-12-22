@@ -1,0 +1,108 @@
+#!/bin/bash
+
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+#カーネル kernel
+#printk
+# /usr/local/sh/system/printk.sh
+
+#FileSystem
+#/usr/local/sh/system/quota.sh
+
+#-dでDMAの設定-cでIO_Support(32bit)の設定
+#-u1で要求したデータがディスクから返ってくる待ち時間に、
+#ネットワークトラフィックなど他の割り込みタスクに応答できるようになる。
+#1がONで0がOFF
+#-mで一つの I/O 割り込みで複数のセクタの転送を可能にする
+#0で無効/-m16で16セクターの転送
+#hda
+#hdparm -d1 -c1 -u1 /dev/hda
+#hdb
+#hdparm -d1 -c1 -u1 /dev/hdb
+
+# ディスク・ファイルシステム
+# WD Blue 4TBディスク
+# SMART機能を有効にする
+#/usr/local/sbin/smartctl -d sat -s on /dev/sdb
+
+# loopデバイス
+# /home/dm-crypt-ext4-disk.imgイメージファイルをループデバイス/dev/loop0に対応づける
+#losetup /dev/loop0 /home/data/cryptloop-disk.img
+
+#samba mount
+#modprobe cifs
+#/usr/local/sh/samba/smbmount_src.sh
+#/usr/local/sh/samba/smbmount_doc.sh
+#/usr/local/sh/samba/smbmount_backup.sh
+
+#bind
+#クエリーログをoffにする
+#/usr/local/sbin/rndc -c /var/named/etc/rndc.conf querylog
+
+
+#ramdisk
+#/usr/local/sh/system/rd.sh -m
+
+# hwclock
+#/usr/local/sh/init.d/rtchwclock.sh enable
+#sleep 1
+#hwclock -w
+#/usr/local/sh/init.d/rtchwclock.sh set
+
+# NTP
+# ntpdを手動で入れてsystemdで起動できないのでここで起動
+#systemctl start ntpd
+
+# DNS
+# resolv.conf
+# resolvconf.confに複数nameserverを指定し、127.0.0.1を指定すると
+# 127.0.0.1のみがnameserverに設定される。この問題が回避できないため
+# 複数のDNSサーバーを指定し127.0.0.1を追加する場合は手動でresolv.confに書き込む
+#echo "nameserver   127.0.0.1" >>/etc/resolv.conf
+
+# swap
+
+# iptables
+#/usr/local/sh/rpdevelop/iptables.sh
+
+##
+# 起動時に読み込まれ実行されるスクリプト
+# rc-localサービスの/etc/rc.localから読み込まれ実行される。
+
+# 起動時の処理
+function _start() {
+    # I2S GPIOピン有効化
+    # I2SのGPIOピンはデフォルトでは使用できない。
+    # これを有効化するにはI2Sが使用するピンをALT0にセットする必要がある。
+    /usr/local/sh/system/i2s-setup.sh
+
+    /usr/local/sh/system/pdflush.sh
+    /usr/local/sh/system/pdflush.sh status
+
+    # NICE値の変更
+    renice -n -15 $(pgrep -f /usr/sbin/sshd)
+    return 0
+}
+# 
+#シャットダウンの処理
+function _stop() {
+    return 0 
+}
+
+case "$1" in
+    start)
+        _start
+        ;;
+     stop)
+         _stop
+         ;;
+    *)
+        echo "Error rc.local 引数エラー" 1>&2
+        echo "Usage: $0 [start | stop]" 1>&2
+        ;;
+esac
+
+exit 0

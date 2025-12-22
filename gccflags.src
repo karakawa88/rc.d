@@ -1,0 +1,45 @@
+#!/bin/sh
+
+#gccの最適化フラグの意味
+#-malign-double
+#	double, long double, long long の計算が Pentium で若干速くなる
+#-funroll-loops
+#	ループを展開する
+#-fno-math-errno
+#	errno をセットしない（多少速くなる）
+#-ffast-math
+#	エラーチェックをさぼる（お勧めしません）
+#-fomit-frame-pointer
+#	フレームポインタをレジスタから追い出す
+
+#LD_LIBRARY_PATH=$SSL_HOME/lib:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH
+
+
+#CFLAGS="  -malign-double -funroll-loops -fno-math-errno -fomit-frame-pointer -O3 "
+#CPPFLAGS=" -march=native -malign-double -funroll-loops -fno-math-errno -fomit-frame-pointer -O3 "
+#CXXFLAGS=" -march=native -malign-double -funroll-loops -fno-math-errno -fomit-frame-pointer -O3 "
+#LDFLAGS=" -march=native -malign-double -funroll-loops -fno-math-errno -fomit-frame-pointer -O3 "
+CFLAGS=" -O3 -mcpu=native -march=native "
+#" -O3 -march=i686 "
+CPPFLAGS=" -O3 -mcpu=native -march=native "
+#" -O3 -march=i686 "
+LDLAGS=
+#" -O3 -march=i686 "
+CXXFLAGS=" -O3 -mcpu=native -march=native "
+#" -O3 -march=i686 "
+export CFLAGS CPPFLAGS CXXFLAGS
+#export LDFLAGS 
+
+#ABI=32
+#export ABI
+ 
+#GNOME
+# export GTK_CFLAGS=" -march=native -O3 -I/usr/local/include "
+# export GTK2_CFLAGS=" -march=native -O3 -I/usr/local/include "
+# export GTK3_CFLAGS=" -march=native -O3 -I/usr/local/include "
+# export GNOME_CFLAGS=" -march=native -O3 -I/usr/local/include "
+# export GLIB2_CFLAGS=" -march=native -O3 -I/usr/local/include "
+# export GCONF_CFLAGS=" -march=native -O3 -I/usr/local/include "
+#
+# export PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/local/lib/pkgconfig" 

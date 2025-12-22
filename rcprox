@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#Xにおける環境変数の設定
+#入力
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+
+#xft2
+#UNIXの新しい文字描画機能
+#アンチエイリアス処理を可能にする
+#xft2の有効無効を制御する環境変数
+#これを無効にするとアンチエイリアスのみでなく
+#xft2の文字描画機能も使えなくなる
+GDK_USE_XFT=1
+QT_XFT=true
+export GDK_USE_XFT QT_XFT
+
+#X config
+#Key Auto Repeat
+xset r on
+xset r rate 300 30
+
