@@ -67,7 +67,7 @@ export PAGER='nvimpager'
 export LESS='-R'
 
 #Git
-export GIT_PAGER="less"
+export GIT_PAGER="nvimpager"
 export GIT_EDITOR="nvim"
 #git repogitories
 export GIT_REPOS=/home/data/git/repos
@@ -89,7 +89,6 @@ export XDG_CONFIG_HOME=~/.config
 export EDITOR=/usr/local/bin/nvim
 #nvim
 #export VIMRUNTIME="/opt/local/share/vim/vim80/"
-
 export WORK=~/work
 
 # PostgreSQL
@@ -98,7 +97,7 @@ export WORK=~/work
 # export PGHOST=localhost
 
 # Wifiデバイス名
-export WD="wlx0013eff3249b"
+#export WD="wlx0013eff3249b"
 
 # GPG
 # GPGで署名を行う際エラーを回避する
@@ -125,6 +124,9 @@ export BAT_CONFIG_PATH="/etc/rc.d/bat.conf"
 
 # latex
 export TEX_HOME="/usr/local/texlive/2025"
+
+# Obsidian
+export obsidian_valut_path="~/.obsidian/vault"
 
 #path
 # export PATH="$MYSQL_BIN"

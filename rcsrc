@@ -62,6 +62,8 @@ alias ext='exa -T --color=always --icons '
 # init.vimを読みこまずデフォルトの状態で起動する
 # その場合viで退化して起動する。それを防ぐために-Nでvimとして起動する。
 alias nonvim='nvim -u NONE -N '
+# synctex
+alias nvimtex='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
 
 # fzf
 if [[ -r /etc/rc.d/fzf.src ]]
