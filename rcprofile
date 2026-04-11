@@ -126,7 +126,10 @@ export BAT_CONFIG_PATH="/etc/rc.d/bat.conf"
 export TEX_HOME="/usr/local/texlive/2025"
 
 # Obsidian
-export obsidian_valut_path="~/.obsidian/vault"
+export obsidian_vault_path="~/.obsidian/vault"
+
+# Rust
+export RUSTC_WRAPPER=$(which sccache)
 
 #path
 # export PATH="$MYSQL_BIN"
